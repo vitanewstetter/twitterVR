@@ -109,7 +109,8 @@ WebVRConfig = {
     var text = "Hi my name is vita. I am sitting in my bed. I just talked to my moms.";
 
     init();
-    animate();
+    setupStage();
+   // animate();
 
 
     function makeTexture(){
@@ -210,16 +211,18 @@ WebVRConfig = {
             vrButton.requestEnterFullscreen();
         });
 
-        setupStage();
+
     }
 
 
 
 
     // Request animation frame loop function
-    function animate() {
+    function animate(timestamp) {
+        var delta = Math.min(timestamp - lastRenderTime, 500);
+        lastRenderTime = timestamp;
 
-        requestAnimationFrame( animate );
+        //requestAnimationFrame( animate );
         //CHANGE TEXT HERE:
 
         makeTexture();
