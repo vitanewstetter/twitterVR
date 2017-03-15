@@ -228,14 +228,11 @@ WebVRConfig = {
         // Only update controls if we're presenting.
         if (vrButton.isPresenting()) {
             controls.update();
-            vrDisplay.requestAnimationFrame(animate);
         }
-
-
         //render the scene
         effect.render( scene, camera );
 
-
+        vrDisplay.requestAnimationFrame(animate);
     }
 
     function onResize(e) {
