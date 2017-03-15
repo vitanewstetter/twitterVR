@@ -52,249 +52,219 @@ WebVRConfig = {
    * webvr-polyfill configuration
    */
 
-  // Forces availability of VR mode.
-  //FORCE_ENABLE_VR: true, // Default: false.
-  // Complementary filter coefficient. 0 for accelerometer, 1 for gyro.
-  //K_FILTER: 0.98, // Default: 0.98.
-  // How far into the future to predict during fast motion.
-  //PREDICTION_TIME_S: 0.040, // Default: 0.040 (in seconds).
-  // Flag to disable touch panner. In case you have your own touch controls
-  //TOUCH_PANNER_DISABLED: true, // Default: false.
-  // Enable yaw panning only, disabling roll and pitch. This can be useful for
-  // panoramas with nothing interesting above or below.
-  //YAW_ONLY: true, // Default: false.
-  // Enable the deprecated version of the API (navigator.getVRDevices).
-  //ENABLE_DEPRECATED_API: true, // Default: false.
-  // Scales the recommended buffer size reported by WebVR, which can improve
-  // performance. Making this very small can lower the effective resolution of
-  // your scene.
   BUFFER_SCALE: 0.5, // default: 1.0
-  // Allow VRDisplay.submitFrame to change gl bindings, which is more
-  // efficient if the application code will re-bind it's resources on the
-  // next frame anyway.
-  // Dirty bindings include: gl.FRAMEBUFFER_BINDING, gl.CURRENT_PROGRAM,
-  // gl.ARRAY_BUFFER_BINDING, gl.ELEMENT_ARRAY_BUFFER_BINDING,
-  // and gl.TEXTURE_BINDING_2D for texture unit 0
-  // Warning: enabling this might lead to rendering issues.
-  //DIRTY_SUBMIT_FRAME_BINDINGS: true // default: false
 };
 </script>
 
 <!--
   A polyfill for Promises. Needed for IE and Edge.
 -->
-<script src="node_modules/es6-promise/dist/es6-promise.min.js"></script>
+<script src="js/es6-promise.min.js"></script>
 
 <!--
   three.js 3d library
 -->
-<script src="node_modules/three/build/three.min.js"></script>
+<script src="js/three.min.js"></script>
 
 <!--
   VRControls.js acquires positional information from connected VR devices and applies the transformations to a three.js camera object.
 -->
-<script src="node_modules/three/examples/js/controls/VRControls.js"></script>
+<script src="js/VRControls.js"></script>
 
 <!--
   VREffect.js handles stereo camera setup and rendering.
 -->
-<script src="node_modules/three/examples/js/effects/VREffect.js"></script>
+<script src="js/VREffect.js"></script>
 
 <!--
   A polyfill for WebVR using the Device{Motion,Orientation}Event API.
 -->
-<script src="node_modules/webvr-polyfill/build/webvr-polyfill.min.js"></script>
+<script src="js/webvr-polyfill.min.js"></script>
 
 <!--
   A set of UI controls for entering VR mode.
 -->
-<script src="node_modules/webvr-ui/build/webvr-ui.min.js"></script>
+<script src="js/webvr-ui.min.js"></script>
 
-<script src="THREE.MeshLine.js"></script>
+<script src="js/THREE.MeshLine.js"></script>
 
 
 <script src="twitter.js"></script>
 
 <script>
-// Last time the scene was rendered.
-var lastRenderTime = 0;
-// Currently active VRDisplay.
-var vrDisplay;
-// Various global THREE.Objects.
-var scene;
-var controls;
-var effect;
-var camera;
-// EnterVRButton for rendering enter/exit UI.
-var vrButton;
-var text = 0;
-var texture;
-var canvas = document.createElement("canvas");
-var context = canvas.getContext("2d");
+    // Last time the scene was rendered.
+    var lastRenderTime = 0;
+    // Currently active VRDisplay.
+    var vrDisplay;
+    // How big of a box to render.
+    var boxSize = 5;
+    // Various global THREE.Objects.
+    var scene;
+    var cube;
+    var controls;
+    var effect;
+    var camera;
+    // EnterVRButton for rendering enter/exit UI.
+    var vrButton;
+    var texture;
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    var text = 0;
+
+    init();
 
 
-
-
-
-function makeTexture(){
-    context.fillStyle = 'black';
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    var x = canvas.width;
-    var y = canvas.height / 4;
-    context.canvas.width  = 4096;
-    context.canvas.height = 128;
-    context.font = "40pt Calibri";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(text, 100, y);
-}
-
-function init() {
-    setupStage();
-  // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
-  // Only enable it if you actually need to.
-  var renderer = new THREE.WebGLRenderer({antialias: true});
-  renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.gammaInput = true;
-    renderer.gammaOutput = true;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.renderReverseSided = false;
-
-  // Append the canvas element created by the renderer to document body element.
-  document.body.appendChild(renderer.domElement);
-
-  // Create a three.js scene.
-  scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xffffff );
-
-  // Create a three.js camera.
-  var aspect = window.innerWidth / window.innerHeight;
-  camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 10000);
-    //camera.position.z = 40;
-
-  controls = new THREE.VRControls(camera);
-  controls.standing = true;
-  camera.position.y = controls.userHeight;
-
-
-  // Apply VR stereo rendering to renderer.
-  effect = new THREE.VREffect(renderer);
-  effect.setSize(window.innerWidth, window.innerHeight);
-
-
-
-    // smooth my curve over this many points
-    var numPoints = 100;
-
-    var extrudeBend = new THREE.CatmullRomCurve3([
-        new THREE.Vector3( 0, controls.userHeight, -40 ),
-        new THREE.Vector3( 40, controls.userHeight, 0 ),
-        new THREE.Vector3( 0, controls.userHeight, 40 ),
-        new THREE.Vector3( -40, controls.userHeight, 0 )
-    ]);
-
-
-    var geometry = new THREE.Geometry();
-    var splinePoints = extrudeBend.getPoints(numPoints);
-
-    for(var i = 0; i < splinePoints.length; i++){
-        geometry.vertices.push(splinePoints[i]);
+    function makeTexture(){
+        context.fillStyle = 'black';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        var x = canvas.width;
+        var y = canvas.height / 4;
+        context.canvas.width  = 4096;
+        context.canvas.height = 128;
+        context.font = "40pt Calibri";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillStyle = "white";
+        context.fillText(text, 100, y);
     }
 
-    var tube = new THREE.TubeBufferGeometry( extrudeBend, 100, 2, 2 );
-    //addGeometry( tube, 0xff00ff );
+    function init() {
+        // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
+        // Only enable it if you actually need to.
+        var renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setPixelRatio(window.devicePixelRatio);
 
-    texture = new THREE.CanvasTexture( canvas );
-    texture.needsUpdate = true;
+        // Append the canvas element created by the renderer to document body element.
+        document.body.appendChild(renderer.domElement);
 
-    var tubeMaterial = new THREE.MeshBasicMaterial( {
-        map: texture,
-    });
+        // Create a three.js scene.
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color( 0xffffff );
+
+        // Create a three.js camera.
+        var aspect = window.innerWidth / window.innerHeight;
+        camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 10000);
+
+        controls = new THREE.VRControls(camera);
+        controls.standing = true;
+        camera.position.y = controls.userHeight;
+
+        // Apply VR stereo rendering to renderer.
+        effect = new THREE.VREffect(renderer);
+        effect.setSize(window.innerWidth, window.innerHeight);
+
+        //GEOMETRY!
+        // smooth my curve over this many points
+        var numPoints = 100;
+
+        var extrudeBend = new THREE.CatmullRomCurve3([
+            new THREE.Vector3( 0, controls.userHeight, -40 ),
+            new THREE.Vector3( 40, controls.userHeight, 0 ),
+            new THREE.Vector3( 0, controls.userHeight, 40 ),
+            new THREE.Vector3( -40, controls.userHeight, 0 )
+        ]);
+
+        var geometry = new THREE.Geometry();
+        var splinePoints = extrudeBend.getPoints(numPoints);
+
+        for(var i = 0; i < splinePoints.length; i++){
+            geometry.vertices.push(splinePoints[i]);
+        }
+
+        var tube = new THREE.TubeBufferGeometry( extrudeBend, 200, 2, 2 );
+
+        texture = new THREE.CanvasTexture( canvas );
+        texture.needsUpdate = true;
+
+        var tubeMaterial = new THREE.MeshBasicMaterial( {
+            map: texture,
+        });
 
 
-    var tubeMesh = new THREE.Mesh(tube, tubeMaterial);
-    scene.add(tubeMesh);
-
-    var resolution = new THREE.Vector2( window.innerWidth, window.innerHeight );
+        var tubeMesh = new THREE.Mesh(tube, tubeMaterial);
+        scene.add(tubeMesh);
 
 
 
+        window.addEventListener('resize', onResize, true);
+        window.addEventListener('vrdisplaypresentchange', onResize, true);
 
+        // Initialize the WebVR UI.
+        var uiOptions = {
+            color: 'black',
+            background: 'white',
+            corners: 'square'
+        };
+        vrButton = new webvrui.EnterVRButton(renderer.domElement, uiOptions);
+        vrButton.on('exit', function() {
+            camera.quaternion.set(0, 0, 0, 1);
+            camera.position.set(0, controls.userHeight, 0);
+        });
+        vrButton.on('hide', function() {
+            document.getElementById('ui').style.display = 'none';
+        });
+        vrButton.on('show', function() {
+            document.getElementById('ui').style.display = 'inherit';
+        });
+        document.getElementById('vr-button').appendChild(vrButton.domElement);
+        document.getElementById('magic-window').addEventListener('click', function() {
+            vrButton.requestEnterFullscreen();
+        });
 
-  window.addEventListener('resize', onResize, true);
-  window.addEventListener('vrdisplaypresentchange', onResize, true);
-
-  // Initialize the WebVR UI.
-  var uiOptions = {
-    color: 'black',
-    background: 'white',
-    corners: 'square'
-  };
-  vrButton = new webvrui.EnterVRButton(renderer.domElement, uiOptions);
-  vrButton.on('exit', function() {
-    camera.quaternion.set(0, 0, 0, 1);
-    camera.position.set(0, controls.userHeight, 0);
-  });
-  vrButton.on('hide', function() {
-    document.getElementById('ui').style.display = 'none';
-  });
-  vrButton.on('show', function() {
-    document.getElementById('ui').style.display = 'inherit';
-  });
-  document.getElementById('vr-button').appendChild(vrButton.domElement);
-  document.getElementById('magic-window').addEventListener('click', function() {
-    vrButton.requestEnterFullscreen();
-  });
-}
-
-function animate() {
-
-    requestAnimationFrame( animate );
-    //CHANGE TEXT HERE:
-
-    makeTexture();
-    texture.needsUpdate = true;
-
-    // Only update controls if we're presenting.
-    if (vrButton.isPresenting()) {
-        controls.update();
+        setupStage();
     }
-    //render the scene
-    effect.render( scene, camera );
 
-    vrDisplay.requestAnimationFrame(animate);
-}
 
-function onResize() {
-  effect.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-}
 
-// Get the HMD, and if we're dealing with something that specifies
-// stageParameters, rearrange the scene.
-function setupStage() {
-  navigator.getVRDisplays().then(function(displays) {
-    if (displays.length > 0) {
-      vrDisplay = displays[0];
-      if (vrDisplay.stageParameters) {
-        setStageDimensions(vrDisplay.stageParameters);
-      }
-      //vrDisplay.requestAnimationFrame(animate);
+
+    // Request animation frame loop function
+    function animate() {
+
+        requestAnimationFrame( animate );
+        //CHANGE TEXT HERE:
+
+        makeTexture();
+        texture.needsUpdate = true;
+
+        // Only update controls if we're presenting.
+        if (vrButton.isPresenting()) {
+            controls.update();
+        }
+        //render the scene
+        effect.render( scene, camera );
+
+        //vrDisplay.requestAnimationFrame(animate);
     }
-  });
-}
 
-function setStageDimensions(stage) {
-  // Place the cube in the middle of the scene, at user height.
-  //cube.position.set(0, controls.userHeight, 0);
-}
+    function onResize(e) {
+        effect.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    }
 
-//window.addEventListener('load', onLoad);
+    // Get the HMD, and if we're dealing with something that specifies
+    // stageParameters, rearrange the scene.
+    function setupStage() {
+        navigator.getVRDisplays().then(function(displays) {
+            if (displays.length > 0) {
+                vrDisplay = displays[0];
+                if (vrDisplay.stageParameters) {
+                    setStageDimensions(vrDisplay.stageParameters);
+                }
+                vrDisplay.requestAnimationFrame(animate);
+            }
+        });
+    }
 
-init();
-animate();
+    function setStageDimensions(stage) {
+
+
+
+        // Place the cube in the middle of the scene, at user height.
+        //cube.position.set(0, controls.userHeight, 0);
+    }
+
+    //window.addEventListener('load', onLoad);
 </script>
 
 </html>
