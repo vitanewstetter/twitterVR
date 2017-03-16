@@ -242,7 +242,6 @@
         if (vrButton.isPresenting()) {
             controls.update();
             //makeTexture();
-            tubeMaterial.side = THREE.BackSide;
             texture.needsUpdate = true;
 
         }
@@ -275,7 +274,7 @@
 
     function setStageDimensions(stage) {
 
-
+        tubeMaterial.side = THREE.BackSide;
 
         // Place the cube in the middle of the scene, at user height.
         //cube.position.set(0, controls.userHeight, 0);
