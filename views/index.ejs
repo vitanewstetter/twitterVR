@@ -116,6 +116,7 @@
     var text = "";
 
     var tubeMaterial;
+    var tubeMaterial2;
     //var xPos = canvas.width;
 
     init();
@@ -192,6 +193,11 @@
             //side: THREE.BackSide,
         });
 
+        tubeMaterial2 = new THREE.MeshBasicMaterial( {
+            map: tex,
+            side: THREE.BackSide,
+        });
+
 
         var tubeMesh = new THREE.Mesh(tube, tubeMaterial);
         scene.add(tubeMesh);
@@ -243,6 +249,7 @@
         if (vrButton.isPresenting()) {
             controls.update();
             //makeTexture();
+
             texture.needsUpdate = true;
 
         }
