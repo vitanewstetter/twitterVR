@@ -115,6 +115,7 @@
     var context = canvas.getContext("2d");
     var text = "";
 
+    var tubeMaterial;
     //var xPos = canvas.width;
 
     init();
@@ -186,7 +187,7 @@
         var tex = new THREE.TextureLoader().load( "text.png" );
         //texture.needsUpdate = true;
 
-        var tubeMaterial = new THREE.MeshBasicMaterial( {
+        tubeMaterial = new THREE.MeshBasicMaterial( {
             map: texture,
             //side: THREE.BackSide,
         });
