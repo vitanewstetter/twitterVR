@@ -229,9 +229,9 @@
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(-1, 1);
+            //texture.repeat.set(-1, 1);
             texture.flipY = false;
-            texture.offset.y = -0.25;
+            texture.offset.y = -0.75;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
