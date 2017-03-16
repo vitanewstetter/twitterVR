@@ -26,9 +26,9 @@ var temp1 = 0;
 var temp2 = 0;
 var temp3 = 0;
 
-var keyword1 = "#trumpbudget";
-var keyword2 = "mango";
-var keyword3 = "san francisco";
+var keyword1 = "#budget";
+var keyword2 = "#SavetheNEA";
+var keyword3 = "#marchmadness";
 
 var otherVar1 = setInterval(addletter1, 75);
 var otherVar2 = setInterval(addletter2, 75);
