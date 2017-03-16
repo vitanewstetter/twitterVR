@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <title>Web VR boilerplate</title>
+    <title>twitterVR</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -115,6 +115,11 @@
     var context = canvas.getContext("2d");
     var text = "";
 
+    var inVR = false;
+
+    function checkIfVR(){
+
+    }
     // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
     // Only enable it if you actually need to.
     var renderer = new THREE.WebGLRenderer({antialias: true});
@@ -207,12 +212,18 @@
         vrButton.on('exit', function() {
             camera.quaternion.set(0, 0, 0, 1);
             camera.position.set(0, controls.userHeight, 0);
+            tubeMaterial.side = THREE.FrontSide;
+            tubeMaterial.needsUpdate = true;
         });
         vrButton.on('hide', function() {
             document.getElementById('ui').style.display = 'none';
         });
         vrButton.on('show', function() {
             document.getElementById('ui').style.display = 'inherit';
+        });
+        document.getElementById('vr-button').addEventListener('click', function() {
+            tubeMaterial.side = THREE.BackSide;
+            tubeMaterial.needsUpdate = true;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
@@ -260,8 +271,9 @@
     // stageParameters, rearrange the scene.
     function setupStage() {
         navigator.getVRDisplays().then(function(displays) {
-            tubeMaterial.side = THREE.BackSide;
-            tubeMaterial.needsUpdate = true;
+//            tubeMaterial.side = THREE.BackSide;
+//            tubeMaterial.needsUpdate = true;
+
             if (displays.length > 0) {
                 vrDisplay = displays[0];
                 if (vrDisplay.stageParameters) {
