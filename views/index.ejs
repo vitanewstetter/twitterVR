@@ -186,9 +186,7 @@
     function makeTexture(){
         context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
-        var x = canvas.width;
         var y = canvas.height / 4;
-        var y2 = canvas.height -35;
         context.canvas.width  = 4096;
         context.canvas.height = 128;
         context.font = "40pt Calibri";
@@ -229,9 +227,8 @@
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            //texture.repeat.set(-1, 1);
             texture.flipY = false;
-            texture.offset.y = -0.75;
+            texture.offset.y = -0.5;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
