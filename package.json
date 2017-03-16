@@ -1,0 +1,23 @@
+{
+  "name": "TwitterStreamingDemo",
+  "version": "0.0.0",
+  "description": "Basic demos using the Twitter streaming APIs",
+  "main": "stream-sample.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "gnip": "^1.1.0",
+    "gnippy": "0.0.11",
+    "http": "0.0.0",
+    "lodash": "^3.3.1",
+    "nconf": "^0.7.1",
+    "socket.io": "^1.7.3",
+    "twit": "^1.1.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@joncipriano",
+  "license": "MIT"
+}
