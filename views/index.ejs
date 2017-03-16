@@ -260,11 +260,11 @@
     // stageParameters, rearrange the scene.
     function setupStage() {
         navigator.getVRDisplays().then(function(displays) {
+            tubeMaterial.side = THREE.BackSide;
+            tubeMaterial.needsUpdate = true;
             if (displays.length > 0) {
                 vrDisplay = displays[0];
                 if (vrDisplay.stageParameters) {
-                    tubeMaterial.side = THREE.BackSide;
-                    tubeMaterial.needsUpdate = true;
                     setStageDimensions(vrDisplay.stageParameters);
                 }
                 vrDisplay.requestAnimationFrame(animate);
@@ -275,8 +275,8 @@
 
     function setStageDimensions(stage) {
 
-        tubeMaterial.side = THREE.BackSide;
-        tubeMaterial.needsUpdate = true;
+//        tubeMaterial.side = THREE.BackSide;
+//        tubeMaterial.needsUpdate = true;
 
         // Place the cube in the middle of the scene, at user height.
         //cube.position.set(0, controls.userHeight, 0);
