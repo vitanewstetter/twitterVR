@@ -9,23 +9,55 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
-var newText = "                                                                                                               " +
+var newText1 = "                                                                                                               " +
             "                                                                                                                 " +
             "                                                                                                                 " ;
-var currentTweet = "";
+var newText2 = "                                                                                                               " +
+    "                                                                                                                 " +
+    "                                                                                                                 " ;
+var newText3 = "                                                                                                               " +
+    "                                                                                                                 " +
+    "                                                                                                                 " ;
+var currentTweet1 = "";
+var currentTweet2 = "";
+var currentTweet3 = "";
 
-var temp = 0;
-var keyword = "#trumpbudget";
+var temp1 = 0;
+var temp2 = 0;
+var temp3 = 0;
 
- var otherVar = setInterval(addletter, 75);
+var keyword1 = "#trumpbudget";
+var keyword2 = "mango";
+var keyword3 = "san francisco";
 
-     function addletter(){
-         temp+=1;
-         newText += currentTweet.charAt(temp);
-         newText = newText.substr(1);
+var otherVar1 = setInterval(addletter1, 75);
+var otherVar2 = setInterval(addletter2, 75);
+var otherVar3 = setInterval(addletter3, 75);
 
-        return newText;
+function addletter1(){
+         temp1+=1;
+
+         newText1 += currentTweet1.charAt(temp1);
+         newText1 = newText1.substr(1);
+
+         return newText1;
     }
+function addletter2(){
+    temp2+=1;
+
+    newText2 += currentTweet2.charAt(temp2);
+    newText2 = newText2.substr(1);
+
+    return newText2;
+}
+function addletter3(){
+    temp3+=1;
+
+    newText3 += currentTweet3.charAt(temp3);
+    newText3 = newText3.substr(1);
+
+    return newText3;
+}
 
 
 //var app = express();
@@ -35,8 +67,6 @@ app.use(express.static("./public/"));
 
 
 app.get("/", function(req, res){
-    //console.log(req.method);
-    // getTweet();
     res.render('index');
 });
 
@@ -49,20 +79,40 @@ var twitter = new Twit({
     access_token: nconf.get('TWITTER_ACCESS_TOKEN'),
     access_token_secret: nconf.get('TWITTER_ACCESS_TOKEN_SECRET')
 });
-var tweetStream = twitter.stream('statuses/filter', { track: keyword});
+var tweetStream1 = twitter.stream('statuses/filter', { track: keyword1});
+var tweetStream2 = twitter.stream('statuses/filter', { track: keyword2});
+var tweetStream3 = twitter.stream('statuses/filter', { track: keyword3});
 
-    tweetStream.on('tweet', function (tweet) {
-         currentTweet += tweet.text;
+    tweetStream1.on('tweet', function (tweet) {
+         currentTweet1 += tweet.text;
+    });
+
+    tweetStream2.on('tweet', function (tweet) {
+        currentTweet2 += tweet.text;
+    });
+
+    tweetStream3.on('tweet', function (tweet) {
+        currentTweet3 += tweet.text;
     });
 
 io.on('connection', function(socket){
     setInterval(function(){
-        socket.emit('newT', newText);
+        socket.emit('newT1', newText1);
+    }, 501);
+    setInterval(function(){
+        socket.emit('newT2', newText2);
     }, 500);
-    socket.on('newT', function(msg){
-        // io.emit('newT', msg); //good one!!!!
-        io.emit('newT', newText);
-        //console.log(msg);
+    setInterval(function(){
+        socket.emit('newT3', newText3);
+    }, 499);
+    socket.on('newT1', function(msg){
+        io.emit('newT1', newText1);
+    });
+    socket.on('newT2', function(msg){
+        io.emit('newT2', newText2);
+    });
+    socket.on('newT3', function(msg){
+        io.emit('newT3', newText3);
     });
 });
 

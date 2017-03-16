@@ -36,10 +36,6 @@
     </style>
 </head>
 
-<script>
-    var socket = io();
-</script>
-
 <body>
 <div id="ui">
     <div id="vr-button"></div>
@@ -110,23 +106,30 @@
     var camera;
     // EnterVRButton for rendering enter/exit UI.
     var vrButton;
-    var texture;
-    var canvas = document.createElement("canvas");
-    var context = canvas.getContext("2d");
 
-    var text = "";
+    var texture1;
+    var texture2;
+    var texture3;
 
-    var inVR = false;
+    var canvas1 = document.createElement("canvas");
+    var context1 = canvas1.getContext("2d");
 
-    function checkIfVR(){
+    var canvas2 = document.createElement("canvas");
+    var context2 = canvas2.getContext("2d");
 
-    }
+    var canvas3 = document.createElement("canvas");
+    var context3 = canvas3.getContext("2d");
+
+    var text1 = "";
+    var text2 = "test";
+    var text3 = "tes";
+
     // Setup three.js WebGL renderer. Note: Antialiasing is a big performance hit.
     // Only enable it if you actually need to.
     var renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Append the canvas element created by the renderer to document body element.
+    // Append the canvas1 element created by the renderer to document body element.
     document.body.appendChild(renderer.domElement);
 
     // Create a three.js scene.
@@ -149,41 +152,76 @@
     // smooth my curve over this many points
     var numPoints = 300;
 
-    var extrudeBend = new THREE.CatmullRomCurve3([
+    var extrudeBend1 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3( 0, controls.userHeight+10, -40 ),
+        new THREE.Vector3( 40, controls.userHeight+10, 0 ),
+        new THREE.Vector3( 0, controls.userHeight+10, 40 ),
+        new THREE.Vector3( -40, controls.userHeight+10, 0 )
+    ]);
+
+    var extrudeBend2 = new THREE.CatmullRomCurve3([
         new THREE.Vector3( 0, controls.userHeight, -40 ),
         new THREE.Vector3( 40, controls.userHeight, 0 ),
         new THREE.Vector3( 0, controls.userHeight, 40 ),
         new THREE.Vector3( -40, controls.userHeight, 0 )
     ]);
 
-    extrudeBend.closed = true;
-    var geometry = new THREE.Geometry();
-    var splinePoints = extrudeBend.getPoints(numPoints);
+    var extrudeBend3 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3( 0, controls.userHeight-10, -40 ),
+        new THREE.Vector3( 40, controls.userHeight-10, 0 ),
+        new THREE.Vector3( 0, controls.userHeight-10, 40 ),
+        new THREE.Vector3( -40, controls.userHeight-10, 0 )
+    ]);
 
-    for(var i = 0; i < splinePoints.length; i++){
-        geometry.vertices.push(splinePoints[i]);
+    extrudeBend1.closed = true;
+    extrudeBend2.closed = true;
+    extrudeBend3.closed = true;
+
+    var geometry1 = new THREE.Geometry();
+    var geometry2 = new THREE.Geometry();
+    var geometry3 = new THREE.Geometry();
+
+    var splinePoints1 = extrudeBend1.getPoints(numPoints);
+    var splinePoints2 = extrudeBend2.getPoints(numPoints);
+    var splinePoints3 = extrudeBend3.getPoints(numPoints);
+
+    for(var i = 0; i < splinePoints1.length; i++){
+        geometry1.vertices.push(splinePoints1[i]);
+        geometry2.vertices.push(splinePoints2[i]);
+        geometry3.vertices.push(splinePoints3[i]);
     }
 
-    var tube = new THREE.TubeBufferGeometry( extrudeBend, 200, 2, 2 );
-    texture = new THREE.CanvasTexture( canvas );
+    var tube1 = new THREE.TubeBufferGeometry( extrudeBend1, 200, 3, 2 );
+    var tube2 = new THREE.TubeBufferGeometry( extrudeBend2, 200, 3, 2 );
+    var tube3 = new THREE.TubeBufferGeometry( extrudeBend3, 200, 3, 2 );
 
-    var tex = new THREE.TextureLoader().load( "text.png" );
-    //texture.needsUpdate = true;
+    texture1 = new THREE.CanvasTexture( canvas1 );
+    texture2 = new THREE.CanvasTexture( canvas2 );
+    texture3 = new THREE.CanvasTexture( canvas3 );
 
-    var tubeMaterial = new THREE.MeshBasicMaterial( {
-        map: texture,
-        //side: THREE.BackSide,
+    var tubeMaterial1 = new THREE.MeshBasicMaterial( {
+        map: texture1,
+    });
+    var tubeMaterial2 = new THREE.MeshBasicMaterial( {
+        map: texture2,
+    });
+    var tubeMaterial3 = new THREE.MeshBasicMaterial( {
+        map: texture3,
     });
 
-    var tubeMesh = new THREE.Mesh(tube, tubeMaterial);
+    var tubeMesh1 = new THREE.Mesh(tube1, tubeMaterial1);
+    var tubeMesh2 = new THREE.Mesh(tube2, tubeMaterial2);
+    var tubeMesh3 = new THREE.Mesh(tube3, tubeMaterial3);
 
-    scene.add(tubeMesh);
+    scene.add(tubeMesh1);
+    scene.add(tubeMesh2);
+    scene.add(tubeMesh3);
 
     init();
     setupStage();
 
 
-    function makeTexture(){
+    function makeTexture(context, canvas, text){
         context.fillStyle = 'black';
         context.fillRect(0, 0, canvas.width, canvas.height);
         var y = canvas.height / 4;
@@ -226,9 +264,9 @@
         document.getElementById('vr-button').addEventListener('click', function() {
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.flipY = false;
-            texture.offset.y = -0.5;
+            texture1.wrapS = texture1.wrapT = THREE.RepeatWrapping;
+            texture1.flipY = false;
+            texture1.offset.y = -0.5;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
@@ -248,14 +286,18 @@
 
         //requestAnimationFrame( animate );
 
-        makeTexture();
-        texture.needsUpdate = true;
+        makeTexture(context1, canvas1, text1);
+        makeTexture(context2, canvas2, text2);
+        makeTexture(context3, canvas3, text3);
+
+        texture1.needsUpdate = true;
+        texture2.needsUpdate = true;
+        texture3.needsUpdate = true;
 
         // Only update controls if we're presenting.
         if (vrButton.isPresenting()) {
             controls.update();
-            //makeTexture();
-            texture.needsUpdate = true;
+            texture1.needsUpdate = true;
         }
         vrDisplay.requestAnimationFrame(animate);
         //render the scene
@@ -304,9 +346,18 @@
 <script>
 
     var socket = io();
-    socket.on('newT', function(msg){
-            text = msg;
+    socket.on('newT1', function(msg){
+            text1 = msg;
     });
+    socket.on('newT2', function(msg){
+        text2 = msg;
+        //text2 = "hi!!";
+    });
+    socket.on('newT3', function(msg){
+        text3 = msg;
+        //text2 = "hi!!";
+    });
+
 
 
 </script>
