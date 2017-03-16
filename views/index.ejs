@@ -179,7 +179,7 @@
             geometry.vertices.push(splinePoints[i]);
         }
 
-        var tube = new THREE.TubeBufferGeometry( extrudeBend, 100, 2, 2 );
+        var tube = new THREE.TubeBufferGeometry( extrudeBend, 200, 2, 2 );
 
         texture = new THREE.CanvasTexture( canvas );
 
@@ -187,8 +187,8 @@
         //texture.needsUpdate = true;
 
         var tubeMaterial = new THREE.MeshBasicMaterial( {
-            map: tex,
-            side: THREE.BackSide,
+            map: texture,
+            //side: THREE.BackSide,
         });
 
 
@@ -243,6 +243,7 @@
             controls.update();
             //makeTexture();
             texture.needsUpdate = true;
+            tubeMaterial.side = THREE.BackSide;
         }
         vrDisplay.requestAnimationFrame(animate);
         //render the scene
