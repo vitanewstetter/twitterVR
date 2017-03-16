@@ -146,7 +146,7 @@
 
         // Create a three.js scene.
         scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0xffffff );
+        scene.background = new THREE.Color( 0x000000 );
 
         // Create a three.js camera.
         var aspect = window.innerWidth / window.innerHeight;
@@ -240,11 +240,14 @@
         // Only update controls if we're presenting.
         if (vrButton.isPresenting()) {
             controls.update();
+            makeTexture();
+            texture.needsUpdate = true;
         }
+        vrDisplay.requestAnimationFrame(animate);
         //render the scene
         effect.render( scene, camera );
 
-        vrDisplay.requestAnimationFrame(animate);
+
     }
 
     function onResize(e) {
@@ -284,8 +287,6 @@
     var socket = io();
     socket.on('newT', function(msg){
             text = msg;
-            //alert(msg);
-            //console.log(msg);
     });
 
 

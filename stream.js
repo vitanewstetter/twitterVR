@@ -17,7 +17,7 @@ var currentTweet = "";
 var temp = 0;
 var keyword = "#trumpbudget";
 
- var otherVar = setInterval(addletter, 200);
+ var otherVar = setInterval(addletter, 75);
 
      function addletter(){
          temp+=1;
