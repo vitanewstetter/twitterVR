@@ -113,6 +113,7 @@
     var texture;
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
+
     var text = "";
 
     var inVR = false;
@@ -172,6 +173,7 @@
         map: texture,
         //side: THREE.BackSide,
     });
+
     var tubeMesh = new THREE.Mesh(tube, tubeMaterial);
 
     scene.add(tubeMesh);
@@ -214,6 +216,7 @@
             camera.position.set(0, controls.userHeight, 0);
             tubeMaterial.side = THREE.FrontSide;
             tubeMaterial.needsUpdate = true;
+            texture.needsUpdate = true;
         });
         vrButton.on('hide', function() {
             document.getElementById('ui').style.display = 'none';
@@ -222,6 +225,8 @@
             document.getElementById('ui').style.display = 'inherit';
         });
         document.getElementById('vr-button').addEventListener('click', function() {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(-1, -1);
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
         });
