@@ -187,7 +187,8 @@
         //texture.needsUpdate = true;
 
         var tubeMaterial = new THREE.MeshBasicMaterial( {
-            map: texture,
+            map: tex,
+            side: THREE.BackSide,
         });
 
 
