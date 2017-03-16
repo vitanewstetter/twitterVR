@@ -182,10 +182,12 @@
         var tube = new THREE.TubeBufferGeometry( extrudeBend, 100, 2, 2 );
 
         texture = new THREE.CanvasTexture( canvas );
+
+        var tex = new THREE.TextureLoader().load( "text.png" );
         //texture.needsUpdate = true;
 
         var tubeMaterial = new THREE.MeshBasicMaterial( {
-            map: texture,
+            map: tex,
             side: THREE.DoubleSide,
         });
 
@@ -228,11 +230,10 @@
 
     // Request animation frame loop function
     function animate(timestamp) {
-        var delta = Math.min(timestamp - lastRenderTime, 500);
+        var delta = Math.min(timestamp - lastRenderTime, 200);
         lastRenderTime = timestamp;
 
         //requestAnimationFrame( animate );
-        //CHANGE TEXT HERE:
 
         makeTexture();
         texture.needsUpdate = true;
