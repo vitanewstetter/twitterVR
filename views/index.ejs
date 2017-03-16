@@ -240,8 +240,7 @@
             controls.update();
             //makeTexture();
             texture.needsUpdate = true;
-            tubeMaterial.side = THREE.BackSide;
-            tubeMaterial.needsUpdate = true;
+
 
         }
         vrDisplay.requestAnimationFrame(animate);
@@ -266,7 +265,10 @@
                 if (vrDisplay.stageParameters) {
                     setStageDimensions(vrDisplay.stageParameters);
                 }
+                tubeMaterial.side = THREE.BackSide;
+                tubeMaterial.needsUpdate = true;
                 vrDisplay.requestAnimationFrame(animate);
+
             }
         });
     }
