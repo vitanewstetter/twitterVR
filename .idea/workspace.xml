@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="935c5759-d380-4524-8c55-fb315af7a84c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stream.js" afterPath="$PROJECT_DIR$/stream.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.ejs" afterPath="$PROJECT_DIR$/views/index.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="stream.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="stream.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stream.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="106" column="8" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="8" />
+            <state relative-caret-position="1050">
+              <caret line="103" column="12" lean-forward="true" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
               <folding>
                 <element signature="n#!!block;n#addletter1#0" expanded="false" />
                 <element signature="n#!!block;n#addletter2#0" expanded="false" />
@@ -40,19 +39,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="356" column="13" lean-forward="false" selection-start-line="356" selection-start-column="13" selection-end-line="356" selection-end-column="13" />
+            <state relative-caret-position="243">
+              <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
               <folding>
-                <element signature="e#4032#4280#0#HTML" expanded="false" />
-                <element signature="e#4334#4570#0#HTML" expanded="false" />
-                <element signature="e#4624#4872#0#HTML" expanded="false" />
-                <element signature="e#6884#8325#0#HTML" expanded="false" />
-                <element signature="e#9133#9308#0#HTML" expanded="false" />
-                <element signature="e#9452#9916#0#HTML" expanded="false" />
-                <element signature="e#9957#10181#0#HTML" expanded="false" />
+                <element signature="e#4025#4273#0#HTML" expanded="false" />
+                <element signature="e#4327#4563#0#HTML" expanded="false" />
+                <element signature="e#4617#4865#0#HTML" expanded="false" />
+                <element signature="e#6877#8318#0#HTML" expanded="false" />
+                <element signature="e#9126#9301#0#HTML" expanded="false" />
+                <element signature="e#9445#9909#0#HTML" expanded="false" />
+                <element signature="e#9950#10174#0#HTML" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -107,8 +106,8 @@
         <option value="$PROJECT_DIR$/oldIndex.html" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/twitter.js" />
-        <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/stream.js" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
       </list>
     </option>
   </component>
@@ -286,12 +285,12 @@
       <workItem from="1489542386217" duration="676000" />
       <workItem from="1489543344379" duration="7507000" />
       <workItem from="1489556225775" duration="2592000" />
-      <workItem from="1489604837044" duration="30783000" />
+      <workItem from="1489604837044" duration="30993000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75607000" />
+    <option name="totallyTimeSpent" value="75817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1272" height="773" extended-state="6" />
@@ -581,31 +580,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="356" column="13" lean-forward="false" selection-start-line="356" selection-start-column="13" selection-end-line="356" selection-end-column="13" />
-          <folding>
-            <element signature="e#4032#4280#0#HTML" expanded="false" />
-            <element signature="e#4334#4570#0#HTML" expanded="false" />
-            <element signature="e#4624#4872#0#HTML" expanded="false" />
-            <element signature="e#6884#8325#0#HTML" expanded="false" />
-            <element signature="e#9133#9308#0#HTML" expanded="false" />
-            <element signature="e#9452#9916#0#HTML" expanded="false" />
-            <element signature="e#9957#10181#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stream.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="106" column="8" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="8" />
+        <state relative-caret-position="1050">
+          <caret line="103" column="12" lean-forward="true" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
           <folding>
             <element signature="n#!!block;n#addletter1#0" expanded="false" />
             <element signature="n#!!block;n#addletter2#0" expanded="false" />
             <element signature="n#!!block;n#addletter3#0" expanded="false" />
             <element signature="e#2394#2628#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+          <folding>
+            <element signature="e#4025#4273#0#HTML" expanded="false" />
+            <element signature="e#4327#4563#0#HTML" expanded="false" />
+            <element signature="e#4617#4865#0#HTML" expanded="false" />
+            <element signature="e#6877#8318#0#HTML" expanded="false" />
+            <element signature="e#9126#9301#0#HTML" expanded="false" />
+            <element signature="e#9445#9909#0#HTML" expanded="false" />
+            <element signature="e#9950#10174#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
