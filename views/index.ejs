@@ -115,8 +115,6 @@
     var context = canvas.getContext("2d");
     var text = "";
 
-    var tubeMaterial;
-    var tubeMaterial2;
     //var xPos = canvas.width;
 
     init();
@@ -188,13 +186,8 @@
         var tex = new THREE.TextureLoader().load( "text.png" );
         //texture.needsUpdate = true;
 
-        tubeMaterial = new THREE.MeshBasicMaterial( {
+        var tubeMaterial = new THREE.MeshBasicMaterial( {
             map: texture,
-            //side: THREE.BackSide,
-        });
-
-        tubeMaterial2 = new THREE.MeshBasicMaterial( {
-            map: tex,
             side: THREE.BackSide,
         });
 
@@ -249,7 +242,7 @@
         if (vrButton.isPresenting()) {
             controls.update();
             //makeTexture();
-
+            //tubeMaterial.side = THREE.BackSide;
             texture.needsUpdate = true;
 
         }
@@ -282,7 +275,7 @@
 
     function setStageDimensions(stage) {
 
-        tubeMaterial.side = THREE.BackSide;
+
 
         // Place the cube in the middle of the scene, at user height.
         //cube.position.set(0, controls.userHeight, 0);
