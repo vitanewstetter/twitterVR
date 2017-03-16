@@ -166,6 +166,7 @@
 
     var tube = new THREE.TubeBufferGeometry( extrudeBend, 200, 2, 2 );
     texture = new THREE.CanvasTexture( canvas );
+
     var tex = new THREE.TextureLoader().load( "text.png" );
     //texture.needsUpdate = true;
 
@@ -187,6 +188,7 @@
         context.fillRect(0, 0, canvas.width, canvas.height);
         var x = canvas.width;
         var y = canvas.height / 4;
+        var y2 = canvas.height -35;
         context.canvas.width  = 4096;
         context.canvas.height = 128;
         context.font = "40pt Calibri";
@@ -216,7 +218,6 @@
             camera.position.set(0, controls.userHeight, 0);
             tubeMaterial.side = THREE.FrontSide;
             tubeMaterial.needsUpdate = true;
-            texture.needsUpdate = true;
         });
         vrButton.on('hide', function() {
             document.getElementById('ui').style.display = 'none';
@@ -225,11 +226,11 @@
             document.getElementById('ui').style.display = 'inherit';
         });
         document.getElementById('vr-button').addEventListener('click', function() {
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(-1, -1);
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
-            texture.needsUpdate = true;
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(-1, 1);
+            texture.flipY = false;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
