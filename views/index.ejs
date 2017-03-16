@@ -229,6 +229,7 @@
             texture.repeat.set(-1, -1);
             tubeMaterial.side = THREE.BackSide;
             tubeMaterial.needsUpdate = true;
+            texture.needsUpdate = true;
         });
         document.getElementById('vr-button').appendChild(vrButton.domElement);
         document.getElementById('magic-window').addEventListener('click', function() {
