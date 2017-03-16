@@ -263,10 +263,10 @@
             if (displays.length > 0) {
                 vrDisplay = displays[0];
                 if (vrDisplay.stageParameters) {
+                    tubeMaterial.side = THREE.BackSide;
+                    tubeMaterial.needsUpdate = true;
                     setStageDimensions(vrDisplay.stageParameters);
                 }
-                tubeMaterial.side = THREE.BackSide;
-                tubeMaterial.needsUpdate = true;
                 vrDisplay.requestAnimationFrame(animate);
 
             }
