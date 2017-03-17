@@ -27,7 +27,7 @@ var temp2 = 0;
 var temp3 = 0;
 
 var keyword1 = "#budget";
-var keyword2 = "#SavetheNEA";
+var keyword2 = "North Korea";
 var keyword3 = "#marchmadness";
 
 var otherVar1 = setInterval(addletter1, 200);
