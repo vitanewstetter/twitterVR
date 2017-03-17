@@ -30,9 +30,9 @@ var keyword1 = "#budget";
 var keyword2 = "North Korea";
 var keyword3 = "#marchmadness";
 
-var otherVar1 = setInterval(addletter1, 200);
-var otherVar2 = setInterval(addletter2, 200);
-var otherVar3 = setInterval(addletter3, 200);
+var otherVar1 = setInterval(addletter1, 75);
+var otherVar2 = setInterval(addletter2, 75);
+var otherVar3 = setInterval(addletter3, 75);
 
 function addletter1(){
          temp1+=1;

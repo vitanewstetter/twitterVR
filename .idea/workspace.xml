@@ -27,13 +27,13 @@
       <file leaf-file-name="stream.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stream.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="29" column="27" lean-forward="false" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="150">
+              <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
               <folding>
                 <element signature="n#!!block;n#addletter1#0" expanded="false" />
                 <element signature="n#!!block;n#addletter2#0" expanded="false" />
                 <element signature="n#!!block;n#addletter3#0" expanded="false" />
-                <element signature="e#2398#2632#0" expanded="false" />
+                <element signature="e#2395#2629#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -278,12 +278,12 @@
       <workItem from="1489543344379" duration="7507000" />
       <workItem from="1489556225775" duration="2592000" />
       <workItem from="1489604837044" duration="31694000" />
-      <workItem from="1489771775295" duration="511000" />
+      <workItem from="1489771775295" duration="663000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77029000" />
+    <option name="totallyTimeSpent" value="77181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1272" height="773" extended-state="6" />
@@ -326,7 +326,7 @@
             <element signature="n#!!block;n#addletter1#0" expanded="false" />
             <element signature="n#!!block;n#addletter2#0" expanded="false" />
             <element signature="n#!!block;n#addletter3#0" expanded="false" />
-            <element signature="e#2398#2632#0" expanded="false" />
+            <element signature="e#2395#2629#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -347,7 +347,7 @@
             <element signature="n#!!block;n#addletter1#0" expanded="false" />
             <element signature="n#!!block;n#addletter2#0" expanded="false" />
             <element signature="n#!!block;n#addletter3#0" expanded="false" />
-            <element signature="e#2398#2632#0" expanded="false" />
+            <element signature="e#2395#2629#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -546,13 +546,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stream.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="29" column="27" lean-forward="false" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        <state relative-caret-position="150">
+          <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
           <folding>
             <element signature="n#!!block;n#addletter1#0" expanded="false" />
             <element signature="n#!!block;n#addletter2#0" expanded="false" />
             <element signature="n#!!block;n#addletter3#0" expanded="false" />
-            <element signature="e#2398#2632#0" expanded="false" />
+            <element signature="e#2395#2629#0" expanded="false" />
           </folding>
         </state>
       </provider>
