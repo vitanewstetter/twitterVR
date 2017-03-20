@@ -153,24 +153,24 @@
     var numPoints = 300;
 
     var extrudeBend1 = new THREE.CatmullRomCurve3([
-        new THREE.Vector3( 0, controls.userHeight+10, -40 ),
-        new THREE.Vector3( 40, controls.userHeight+10, 0 ),
         new THREE.Vector3( 0, controls.userHeight+10, 40 ),
-        new THREE.Vector3( -40, controls.userHeight+10, 0 )
+        new THREE.Vector3( -40, controls.userHeight+10, 0 ),
+        new THREE.Vector3( 0, controls.userHeight+10, -40 ),
+        new THREE.Vector3( 40, controls.userHeight+10, 0 )
     ]);
 
     var extrudeBend2 = new THREE.CatmullRomCurve3([
-        new THREE.Vector3( 0, controls.userHeight, -40 ),
-        new THREE.Vector3( 40, controls.userHeight, 0 ),
         new THREE.Vector3( 0, controls.userHeight, 40 ),
-        new THREE.Vector3( -40, controls.userHeight, 0 )
+        new THREE.Vector3( -40, controls.userHeight, 0 ),
+        new THREE.Vector3( 0, controls.userHeight, -40 ),
+        new THREE.Vector3( 40, controls.userHeight, 0 )
     ]);
 
     var extrudeBend3 = new THREE.CatmullRomCurve3([
-        new THREE.Vector3( 0, controls.userHeight-10, -40 ),
-        new THREE.Vector3( 40, controls.userHeight-10, 0 ),
         new THREE.Vector3( 0, controls.userHeight-10, 40 ),
-        new THREE.Vector3( -40, controls.userHeight-10, 0 )
+        new THREE.Vector3( -40, controls.userHeight-10, 0 ),
+        new THREE.Vector3( 0, controls.userHeight-10, -40 ),
+        new THREE.Vector3( 40, controls.userHeight-10, 0 )
     ]);
 
     extrudeBend1.closed = true;
