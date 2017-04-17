@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <title>twitterVR</title>
+    <title>twiVR</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -152,6 +152,7 @@
     // smooth my curve over this many points
     var numPoints = 300;
 
+//make the three curves surfaces
     var extrudeBend1 = new THREE.CatmullRomCurve3([
         new THREE.Vector3( 0, controls.userHeight+10, 40 ),
         new THREE.Vector3( -40, controls.userHeight+10, 0 ),
@@ -181,6 +182,7 @@
     var geometry2 = new THREE.Geometry();
     var geometry3 = new THREE.Geometry();
 
+
     var splinePoints1 = extrudeBend1.getPoints(numPoints);
     var splinePoints2 = extrudeBend2.getPoints(numPoints);
     var splinePoints3 = extrudeBend3.getPoints(numPoints);
@@ -190,11 +192,12 @@
         geometry2.vertices.push(splinePoints2[i]);
         geometry3.vertices.push(splinePoints3[i]);
     }
-
+//extrude paths into surfaces
     var tube1 = new THREE.TubeBufferGeometry( extrudeBend1, 200, 3, 2 );
     var tube2 = new THREE.TubeBufferGeometry( extrudeBend2, 200, 3, 2 );
     var tube3 = new THREE.TubeBufferGeometry( extrudeBend3, 200, 3, 2 );
 
+//add updating canvases as textures
     texture1 = new THREE.CanvasTexture( canvas1 );
     texture2 = new THREE.CanvasTexture( canvas2 );
     texture3 = new THREE.CanvasTexture( canvas3 );
@@ -213,6 +216,7 @@
     var tubeMesh2 = new THREE.Mesh(tube2, tubeMaterial2);
     var tubeMesh3 = new THREE.Mesh(tube3, tubeMaterial3);
 
+//add rings to scene
     scene.add(tubeMesh1);
     scene.add(tubeMesh2);
     scene.add(tubeMesh3);
@@ -351,11 +355,9 @@
     });
     socket.on('newT2', function(msg){
         text2 = msg;
-        //text2 = "hi!!";
     });
     socket.on('newT3', function(msg){
         text3 = msg;
-        //text2 = "hi!!";
     });
 
 
