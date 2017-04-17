@@ -8,7 +8,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
+//hack way of starting the feed empty and then filling it with the right amount letters
 var newText1 = "                                                                                                               " +
             "                                                                                                                 " +
             "                                                                                                                 " ;
@@ -26,6 +26,7 @@ var temp1 = 0;
 var temp2 = 0;
 var temp3 = 0;
 
+//queries for each line - currently searching these:
 var keyword1 = "yesterday";
 var keyword2 = "today";
 var keyword3 = "tomorrow";
@@ -33,7 +34,7 @@ var keyword3 = "tomorrow";
 var otherVar1 = setInterval(addletter1, 75);
 var otherVar2 = setInterval(addletter2, 75);
 var otherVar3 = setInterval(addletter3, 75);
-
+//change texture for ring1
 function addletter1(){
          temp1+=1;
 
@@ -42,6 +43,7 @@ function addletter1(){
 
          return newText1;
     }
+//change texture for ring2
 function addletter2(){
     temp2+=1;
 
@@ -50,6 +52,7 @@ function addletter2(){
 
     return newText2;
 }
+//change texture for ring3
 function addletter3(){
     temp3+=1;
 
@@ -79,6 +82,8 @@ var twitter = new Twit({
     access_token: nconf.get('TWITTER_ACCESS_TOKEN'),
     access_token_secret: nconf.get('TWITTER_ACCESS_TOKEN_SECRET')
 });
+
+//get twitter stream for each keyword
 var tweetStream1 = twitter.stream('statuses/filter', { track: keyword1});
 var tweetStream2 = twitter.stream('statuses/filter', { track: keyword2});
 var tweetStream3 = twitter.stream('statuses/filter', { track: keyword3});
